@@ -4,6 +4,23 @@ const open = require('open');
 
 const app =  express();
 
+if (process.env.NODE_ENV === "development"){
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    const webpack = require('webpack');
+    const config = require('./webpack.config.js');
+    const compiler = webpack(config);
+    const middlewareOptions = {
+        devtool: "#eval-source-map",
+        publicPath: config.output.publicPath,
+        historyApiFallback: true,
+    };
+
+    app.use(webpackDevMiddleware(compiler, middlewareOptions))
+    app.use(webpackHotMiddleware(compiler));
+}
+
+
 app.use(express.static(path.join(__dirname, "./dist")))
 app.get("/", function(req, res, next){
     //res.sendFile(path.join(__dirname, "./src/index.html"))

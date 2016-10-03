@@ -4,13 +4,13 @@ const AssetsPlugin      = require('assets-webpack-plugin');
 module.exports = {
     entry: "./src/app",
     plugins: [
-        new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("[name].[hash].css"),
         new AssetsPlugin({path: path.join(__dirname, 'dist')})
     ],
     output: {
         path: path.join(__dirname, "./dist"),
         publicPath: "/",
-        filename: "bundle.js"
+        filename: "[name].[hash].js"
     },
     module: {
         loaders: [
