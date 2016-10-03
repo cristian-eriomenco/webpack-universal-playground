@@ -1,10 +1,11 @@
 const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+const AssetsPlugin      = require('assets-webpack-plugin');
 module.exports = {
     entry: "./src/app",
     plugins: [
-        new ExtractTextPlugin("[name].css")
+        new ExtractTextPlugin("[name].css"),
+        new AssetsPlugin({path: path.join(__dirname, 'dist')})
     ],
     output: {
         path: path.join(__dirname, "./dist"),
